@@ -2,7 +2,7 @@
 //phpinfo();
 require_once('bd_cxn.php');
 
-require_once('transaccionesSql.php')
+include_once('transaccionesSql.php');
 
-
+alta($cxn);
 ?>
