@@ -107,7 +107,7 @@ $nameCity= 'Kabul';
         echo "Registro insertado correctamente. $lastId";
       }
     
-      alta($cxn);
+     // alta($cxn);
 
       function transactionSqlInsert($cxn){
             try
@@ -115,6 +115,9 @@ $nameCity= 'Kabul';
                 $cxn->beginTransaction();
                 //hacemos la primer insercion
                 $sql_alta = "INSERT INTO city (Name, CountryCode, District, Population) VALUES (:nameCity, :code, :district, :population)";
+                //    $sqlDelete = "DELETE FROM city WHERE id = :id";
+                // $sqlUpdate= "UPDATE city SET population = :population WHERE id = :id";
+
                 $alta = $cxn->prepare($sql_alta);
             
                 // Parámetros para la insercion
