@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario con Ajax</title>
+</head>
+<body>
+    <h1>Formulario con Ajax</h1>
+    <form id="miFormulario">
+        <input type="text" id="nombre" placeholder="Nombre" required>
+        <input type="email" id="email" placeholder="Correo electrónico" required>
+        <button type="submit">Enviar</button>
+    </form>
+
+    <script>
+        document.getElementById("miFormulario").addEventListener("submit", function(event) {
+            event.preventDefault(); // Evita que el formulario se envíe normalmente
+
+            const nombre = document.getElementById("nombre").value;
+            const email = document.getElementById("email").value;
+
+            // Crear una nueva Promise para la petición Ajax
+            const enviarDatos = new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                //ruta hacia donde enviar el post
+                xhr.open("POST", "procesar.php", true);
+                xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
+                xhr.onload = function() {
+                    if (xhr.status === 200) {
+                        resolve(xhr.responseText); // Resuelve la Promise con la respuesta
+                    } else {
+                        reject("Error en la petición"); // Rechaza la Promise en caso de error
+                    }
+                };
+
+                xhr.onerror = function() {
+                    reject("Error de red"); // Rechaza la Promise en caso de error de red
+                };
+
+                xhr.send(`nombre=${nombre}&email=${email}`);
+            });
+
+            // Manejar la Promise
+            enviarDatos
+                .then(response => {
+                    console.log("Respuesta del servidor:", response);
+                    // Aquí puedes actualizar la interfaz o hacer algo con la respuesta
+                })
+                .catch(error => {
+                    console.error("Error:", error);
+                    // Aquí puedes mostrar un mensaje de error al usuario
+                });
+        });
+    </script>
+</body>
+</html>

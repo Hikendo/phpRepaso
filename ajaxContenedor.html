@@ -1,0 +1,10 @@
+<div id="contenedor"></div>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $.get("tuArchivo.php", function(data) {
+            // Reemplaza el contenido del div con el id "contenedor"
+            $("#contenedor").html(data);
+        });
+    });
+</script>
